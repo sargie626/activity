@@ -1,91 +1,265 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Sign in | Bongar</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer care | Sun Son Solar</title>
+    <style>
+        :root {
+            color-scheme: light;
+            --page: #ffffff;
+            --surface: #ffffff;
+            --ink: #111111;
+            --muted: #666666;
+            --line: #111111;
+            --accent: #111111;
+            --accent-soft: #eeeeee;
+        }
+
+        [data-theme="dark"] {
+            color-scheme: dark;
+            --page: #111111;
+            --surface: #111111;
+            --ink: #ffffff;
+            --muted: #cccccc;
+            --line: #ffffff;
+            --accent: #ffffff;
+            --accent-soft: #333333;
+        }
+
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            background: var(--page);
+            color: var(--ink);
+            font-family: Arial, sans-serif;
+            line-height: 1.5;
+        }
+
+        .topbar {
+            min-height: 64px;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--surface);
+            border-bottom: 2px solid var(--line);
+        }
+
+        .icon-button, .support-link {
+            border: 1px solid var(--line);
+            background: transparent;
+            color: var(--ink);
+            min-width: 36px;
+            height: 36px;
+            border-radius: 0;
+            cursor: pointer;
+            font-size: 19px;
+        }
+        .icon-button:hover, .support-link:hover { background: var(--accent-soft); }
+        .brand { display: flex; align-items: center; gap: 8px; margin-right: auto; }
+        .brand-mark {
+            width: 34px;
+            height: 34px;
+            display: grid;
+            place-items: center;
+            border: 1px solid var(--line);
+            background: var(--surface);
+            color: var(--ink);
+            font-weight: bold;
+            font-size: 20px;
+        }
+        .brand strong { display: block; font-size: 14px; }
+        .brand small { display: block; color: var(--muted); font-size: 12px; }
+        .top-actions { display: flex; align-items: center; gap: 8px; }
+        .support-link { width: auto; padding: 0 15px; font-size: 14px; }
+
+        .menu-panel, .settings-panel {
+            position: absolute;
+            z-index: 2;
+            top: 64px;
+            padding: 14px;
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: 0;
+            font-family: Arial, sans-serif;
+        }
+        .menu-panel { left: 20px; width: 210px; }
+        .settings-panel { right: 20px; width: 230px; }
+        .menu-panel a { display: block; padding: 9px 0; color: var(--ink); text-decoration: none; }
+        .menu-panel a:hover { color: var(--accent); }
+        .settings-panel label { display: flex; justify-content: space-between; gap: 15px; color: var(--muted); font-size: 14px; }
+        [hidden] { display: none; }
+
+        main { max-width: 900px; margin: 0 auto; padding: 36px 24px 60px; }
+        .intro { max-width: 620px; margin: 0 auto 24px; }
+        .eyebrow { color: var(--muted); font: bold 11px Arial, sans-serif; text-transform: uppercase; }
+        h1, h2 { line-height: 1.1; margin: 8px 0 12px; }
+        h1 { font-size: 32px; font-weight: normal; }
+        .intro p { color: var(--muted); font-size: 15px; margin: 0; }
+        .forms { display: grid; grid-template-columns: minmax(0, 620px); justify-content: center; gap: 24px; align-items: start; }
+        .form-card { background: var(--surface); border: 2px solid var(--line); border-radius: 0; padding: 24px; }
+        .form-card header { border-bottom: 1px dashed var(--line); padding-bottom: 16px; margin-bottom: 18px; }
+        .form-card header p { color: var(--muted); margin: 0; }
+        .logo { width: 60px; height: 60px; object-fit: cover; border: 1px solid var(--line); margin-bottom: 10px; }
+        form p { margin: 0 0 18px; }
+        label { display: inline-block; margin-bottom: 6px; font: bold 13px Arial, sans-serif; }
+        input, textarea { width: 100%; border: 1px solid var(--line); border-radius: 0; background: var(--surface); color: var(--ink); padding: 10px; font: 14px Arial, sans-serif; }
+        input:focus, textarea:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+        a { color: var(--accent); }
+        button[type="submit"] { width: 100%; border: 1px solid var(--line); border-radius: 0; padding: 11px 16px; background: var(--accent); color: var(--surface); cursor: pointer; font: bold 14px Arial, sans-serif; }
+        button[type="submit"]:hover { background: var(--muted); }
+        .name-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .fine-print { color: var(--muted); font-size: 14px; }
+        @media (max-width: 760px) {
+            .topbar { padding: 12px 16px; }
+            .support-link { display: none; }
+            .menu-panel { left: 16px; }
+            .settings-panel { right: 16px; }
+            main { padding: 36px 16px 52px; }
+            .forms { grid-template-columns: minmax(0, 620px); }
+        }
+        @media (max-width: 420px) {
+            .brand small { display: none; }
+            .form-card { padding: 22px; }
+            .name-fields { grid-template-columns: 1fr; gap: 0; }
+        }
+    </style>
 </head>
 <body>
-    <main align="center">
-        <br><br>
-        <table id="login" border="1" cellpadding="20" cellspacing="0" width="500">
-            <tr>
-                <td>
-                    <header>
-                        <p align="center">
-                            <img src="sunbreathing.jpg" alt="Sun logo" width="180">
-                        </p>
-                        <p><strong>Sun Son Solar</strong></p>
-                        <h1>Good to see you.</h1>
-                        <p>Sign in to continue to your account.</p>
-                    </header>
-                    <hr>
-                    <form action="#" method="post">
-                        <p><strong>Welcome Back</strong></p>
-                        <p>
-                            <label for="username">Username or email</label><br>
-                            <input id="username" name="username" type="text" autocomplete="username" size="50" required>
-                        </p>
-                        <p>
-                            <label for="password">Password</label><br>
-                            <input id="password" name="password" type="password" autocomplete="current-password" size="50" required>
-                        </p>
+    <nav class="topbar" aria-label="Customer service navigation">
+        <button class="icon-button" id="menu-button" type="button" aria-label="Open menu" aria-expanded="false">☰</button>
+        <div class="brand">
+            <span class="brand-mark" aria-hidden="true">S</span>
+            <div><strong>Sun Son Solar</strong><small>Customer care centre</small></div>
+        </div>
+        <div class="top-actions">
+            <span class="support-link">Support available</span>
+            <button class="icon-button" id="theme-button" type="button" aria-label="Switch to dark mode">☾</button>
+            <button class="icon-button" id="settings-button" type="button" aria-label="Open settings" aria-expanded="false">⚙</button>
+        </div>
+        <div class="menu-panel" id="menu-panel" hidden>
+            <strong>Help desk</strong>
+            <a href="#login">Sign in</a>
+            <a href="#sign-up">Create account</a>
+            <a href="mailto:support@sunsonsolar.example">Contact support</a>
+        </div>
+        <div class="settings-panel" id="settings-panel" hidden>
+            <label for="compact-mode">Compact forms <input id="compact-mode" type="checkbox"></label>
+        </div>
+    </nav>
+    <main>
+        <section class="forms" aria-label="Account access">
+            <article class="form-card" id="login">
+                <header>
+                    <img class="logo" src="sunbreathing.jpg" alt="Sun Son Solar logo">
+                    <h2>Welcome back</h2>
+                    <p>Sign in to continue to your account.</p>
+                </header>
+    <form action="#" method="post">
+     <p>
+        <label for="username">Username or email</label><br>
+                            <input id="username" name="username" type="text" autocomplete="username" required>
+    </p>
+    <p>
+        <label for="password">Password</label><br>
+                            <input id="password" name="password" type="password" autocomplete="current-password" required>
+     </p>
                         <p><a href="#forgot-password">Forgot password?</a></p>
                         <p><button type="submit">Sign in</button></p>
                         <p>Don't have an account? <a href="#sign-up">Sign up</a></p>
                     </form>
-                </td>
-            </tr>
-        </table>
-        <br><br>
-        <table id="sign-up" border="1" cellpadding="20" cellspacing="0" width="500">
-            <tr>
-                <td>
-                    <header>
-                        <p align="center">
-                            <img src="sunbreathing.jpg" alt="Sun logo" width="180">
-                        </p>
-                        <h2>Create an account</h2>
-                        <p>Fill in your details to sign up.</p>
-                    </header>
-                    <hr>
+            </article>
+            <article class="form-card" id="sign-up" hidden>
+                <header>
+                    <span class="eyebrow">New customer</span>
+                    <h2>Create an account</h2>
+                    <p>Fill in your details to join Sun Son Solar.</p>
+                </header>
                     <form action="#" method="post">
-                        <table width="100%" cellpadding="2" cellspacing="0">
-                            <tr>
-                                <td align="center">
-                                    <label for="first-name">First name</label><br>
-                                    <input id="first-name" name="first-name" type="text" autocomplete="given-name" size="20" required>
-                                </td>
-                                <td align="center">
-                                    <label for="last-name">Last name</label><br>
-                                    <input id="last-name" name="last-name" type="text" autocomplete="family-name" size="20" required>
-                                </td>
-                            </tr>
-                        </table>
+                        <div class="name-fields">
+                            <p><label for="first-name">First name</label><input id="first-name" name="first-name" type="text" autocomplete="given-name" required></p>
+                            <p><label for="last-name">Last name</label><input id="last-name" name="last-name" type="text" autocomplete="family-name" required></p>
+                        </div>
                         <p>
                             <label for="phone">Phone number</label><br>
-                            <input id="phone" name="phone" type="tel" autocomplete="tel" size="50" required>
+                            <input id="phone" name="phone" type="tel" autocomplete="tel" required>
                         </p>
                         <p>
                             <label for="address">Address</label><br>
-                            <textarea id="address" name="address" autocomplete="street-address" rows="3" cols="48" required></textarea>
+                            <textarea id="address" name="address" autocomplete="street-address" rows="3" required></textarea>
                         </p>
+        
                         <p>
                             <label for="birthday">Birthday</label><br>
                             <input id="birthday" name="birthday" type="date" autocomplete="bday" required>
-                        </p>
-                        <p>
-                            <label for="signup-password">Password</label><br>
-                            <input id="signup-password" name="signup-password" type="password" autocomplete="new-password" size="50" required>
-                        </p>
-                        <p>
-                            <label for="confirm-password">Confirm password</label><br>
-                            <input id="confirm-password" name="confirm-password" type="password" autocomplete="new-password" size="50" required>
-                        </p>
-                        <p><button type="submit">Sign up</button></p>
-                        <p>Already have an account? <a href="#login">Sign in</a></p>
-                    </form>
-                </td>
-            </tr>
-        </table>
+            </p>
+            <p>
+            <label for="signup-password">Password</label><br>
+                            <input id="signup-password" name="signup-password" type="password" autocomplete="new-password" required>
+         </p>
+            <p>
+                <label for="confirm-password">Confirm password</label><br>
+                            <input id="confirm-password" name="confirm-password" type="password" autocomplete="new-password" required>
+            </p>
+            <p><button type="submit">Sign up</button></p>
+            <p>Already have an account? <a href="#login">Log In</a></p>
+    </form>
+            </article>
+        </section>
     </main>
+    <script>
+        const menuButton = document.getElementById('menu-button');
+        const menuPanel = document.getElementById('menu-panel');
+        const settingsButton = document.getElementById('settings-button');
+        const settingsPanel = document.getElementById('settings-panel');
+        const themeButton = document.getElementById('theme-button');
+        const loginForm = document.getElementById('login');
+        const signUpForm = document.getElementById('sign-up');
+
+        function showForm(formId) {
+            const showSignUp = formId === 'sign-up';
+            loginForm.hidden = showSignUp;
+            signUpForm.hidden = !showSignUp;
+            history.replaceState(null, '', `#${formId}`);
+        }
+
+        document.querySelectorAll('a[href="#login"], a[href="#sign-up"]').forEach((link) => {
+            link.addEventListener('click', (event) => {
+                event.preventDefault();
+                showForm(link.getAttribute('href').substring(1));
+                menuPanel.hidden = true;
+                menuButton.setAttribute('aria-expanded', 'false');
+            });
+        });
+
+        showForm(window.location.hash === '#sign-up' ? 'sign-up' : 'login');
+
+        function togglePanel(panel, button) {
+            const isHidden = panel.hasAttribute('hidden');
+            menuPanel.hidden = true;
+            settingsPanel.hidden = true;
+            menuButton.setAttribute('aria-expanded', 'false');
+            settingsButton.setAttribute('aria-expanded', 'false');
+            if (isHidden) {
+                panel.hidden = false;
+                button.setAttribute('aria-expanded', 'true');
+            }
+        }
+
+        menuButton.addEventListener('click', () => togglePanel(menuPanel, menuButton));
+        settingsButton.addEventListener('click', () => togglePanel(settingsPanel, settingsButton));
+        themeButton.addEventListener('click', () => {
+            const dark = document.documentElement.dataset.theme === 'dark';
+            document.documentElement.dataset.theme = dark ? 'light' : 'dark';
+            themeButton.textContent = dark ? '☾' : '☀';
+            themeButton.setAttribute('aria-label', dark ? 'Switch to dark mode' : 'Switch to light mode');
+        });
+        document.getElementById('compact-mode').addEventListener('change', (event) => {
+            document.querySelectorAll('.form-card').forEach((card) => {
+                card.style.padding = event.target.checked ? '20px' : '';
+            });
+        });
+    </script>
 </body>
 </html>
